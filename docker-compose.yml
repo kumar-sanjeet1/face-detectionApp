@@ -1,0 +1,33 @@
+version: '3'
+services:
+  # Backend
+  smart-brain-api:
+    container_name: backend
+    build: ./
+    working_dir: /usr/src/smart-brain-api
+    environment:
+      POSTGRES_URI: postgres://sanjeet:sanjeet@postgres:5432/smart-brain
+      clarifaiKey: fdd3f482e9a842ddade86813c14cf177
+    command: npm start
+    ports:
+    - "4000:4000"
+    links: 
+    - postgres
+    volumes:
+    - ./:/usr/src/smart-brain-api
+
+  # Postgres DB
+  postgres:
+    environment:
+      POSTGRES_USER: sanjeet
+      POSTGRES_PWD: sanjeet
+      POSTGRES_DB: smart-brain
+      POSTGRES_HOST: postgres
+    build: ./postgres
+    ports:
+    - "5432:5432"
+
+  
+
+           
+          
